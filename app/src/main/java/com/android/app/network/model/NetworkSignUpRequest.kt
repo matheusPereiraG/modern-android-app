@@ -22,7 +22,7 @@ fun NetworkSignUpRequest.asDatabaseModel(): DatabaseUserDetails {
         nome ?: "",
         email ?: "",
         password ?: "",
-        administrador ?: ""
+        administrador.toBoolean()
     )
 
 }

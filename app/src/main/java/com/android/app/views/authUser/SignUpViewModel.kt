@@ -1,9 +1,8 @@
 package com.android.app.views.authUser
 
-import androidx.databinding.ObservableParcelable
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.app.domain.UserDetails
 import com.android.app.repository.UserAuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -15,12 +14,21 @@ class SignUpViewModel @Inject constructor(
     private val userDetailsRepository: UserAuthRepository
 ) : ViewModel() {
 
-    /*val userDetails = ObservableParcelable(UserDetails())
+    val message: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
 
-    fun getUserDetails(user: String) = userDetailsRepository.getUserDetails(user)
+    fun signUpUser(nome: String, email: String, password: String, isAdminCheck: Boolean) =
+        viewModelScope.launch(Dispatchers.IO) {
+            val networkResponse =
+                userDetailsRepository.signUpUser(nome, email, password, isAdminCheck)
 
-    fun refreshUserDetails(user: String) = viewModelScope.launch(Dispatchers.IO) {
-        userDetailsRepository.refreshUserDetails(user)
-    }*/
-
+            when (networkResponse?.code()) {
+                201 -> message.postValue("Happy days! An account was created for $email")
+                400 -> message.postValue("Sorry but an account already exists for $email")
+                else -> {
+                    message.postValue("Something is wrong! Stay calm, our engineers are looking into it.")
+                }
+            }
+        }
 }
