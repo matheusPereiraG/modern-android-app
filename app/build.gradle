@@ -22,7 +22,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "API_URL", "\"http://192.168.1.238:3000\""
+        }
         release {
+            buildConfigField "String", "API_URL", "\"https://serverest.dev\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

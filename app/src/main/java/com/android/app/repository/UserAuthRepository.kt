@@ -1,17 +1,17 @@
 package com.android.app.repository
 
-import com.android.app.database.UsersDatabase
-import com.android.app.domain.UserDetails
+import android.content.Context
 import com.android.app.network.UserAuthService
 import com.android.app.network.model.NetworkSignUpRequest
 import com.android.app.network.model.NetworkSignUpResponse
+import dagger.hilt.android.qualifiers.ApplicationContext
+import okhttp3.ResponseBody
 import retrofit2.Response
 import timber.log.Timber
 import javax.inject.Inject
 
 class UserAuthRepository @Inject constructor(
-    private val userAuthService: UserAuthService,
-    private val database: UsersDatabase
+    private val userAuthService: UserAuthService
 ) {
 
     suspend fun signUpUser(
@@ -20,14 +20,22 @@ class UserAuthRepository @Inject constructor(
         password: String?,
         administrador: Boolean?
     ): Response<NetworkSignUpResponse>? {
-        var userAuthResponse : Response<NetworkSignUpResponse>? = null
+        var userAuthResponse: Response<NetworkSignUpResponse>? = null
         try {
-            val userRequestBody = NetworkSignUpRequest(nome, email, password, administrador.toString())
+            val userRequestBody =
+                NetworkSignUpRequest(nome, email, password, administrador.toString())
             userAuthResponse = userAuthService.signUpUser(userRequestBody)
         } catch (e: Exception) {
             Timber.w(e)
         }
         return userAuthResponse
+    }
+
+    suspend fun logInUser(
+        email: String,
+        password: String
+    ) {
+
     }
 
     /*fun getUserDetails(user: String): LiveData<UserDetails> {

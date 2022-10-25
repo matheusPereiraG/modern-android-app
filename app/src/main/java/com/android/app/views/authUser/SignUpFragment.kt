@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SignUpFragment : Fragment(), HashUtils {
 
     private val viewModel: SignUpViewModel by viewModels()
-    //private val args: UserDetailsFragmentArgs by navArgs()
+    //private val args: SignUpFragmentArgs by navArgs()
 
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
@@ -49,6 +49,7 @@ class SignUpFragment : Fragment(), HashUtils {
         viewModel.currentStatusPair.observe(viewLifecycleOwner) { statusPair ->
             when (statusPair.first) {
                 201 -> {
+                    clearViews()
                     Toast.makeText(
                         context,
                         getString(R.string.sign_up_success, statusPair.second),
@@ -97,17 +98,12 @@ class SignUpFragment : Fragment(), HashUtils {
         }
     }
 
-    /*override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.refreshUserDetails(args.user)
+    private fun clearViews() {
+        binding.nameEt.text.clear()
+        binding.emailEt.text.clear()
+        binding.passwordEt.text.clear()
+        binding.isAdminCb.isChecked = true
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.getUserDetails(args.user).observe(viewLifecycleOwner, {
-            viewModel.userDetails.set(it)
-        })
-    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()
