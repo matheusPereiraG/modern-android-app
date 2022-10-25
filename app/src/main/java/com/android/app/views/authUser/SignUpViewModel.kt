@@ -14,21 +14,14 @@ class SignUpViewModel @Inject constructor(
     private val userDetailsRepository: UserAuthRepository
 ) : ViewModel() {
 
-    val message: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
+    val currentStatusPair: MutableLiveData<Pair<Int?, String>> by lazy {
+        MutableLiveData<Pair<Int?, String>>()
     }
 
     fun signUpUser(nome: String, email: String, password: String, isAdminCheck: Boolean) =
         viewModelScope.launch(Dispatchers.IO) {
             val networkResponse =
                 userDetailsRepository.signUpUser(nome, email, password, isAdminCheck)
-
-            when (networkResponse?.code()) {
-                201 -> message.postValue("Happy days! An account was created for $email")
-                400 -> message.postValue("Sorry but an account already exists for $email")
-                else -> {
-                    message.postValue("Something is wrong! Stay calm, our engineers are looking into it.")
-                }
-            }
+            currentStatusPair.postValue(Pair(networkResponse?.code(), email))
         }
 }

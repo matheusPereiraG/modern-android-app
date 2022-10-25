@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Modern App</string>
+
+    <string name="sign_up_success">Happy days! An account was created for %1$s</string>
+    <string name="sign_up_bad_request">Sorry but an account already exists for %1$s</string>
+    <string name="sign_up_error">Something is wrong! Stay calm, our engineers are looking into it.</string>
+
 </resources>
