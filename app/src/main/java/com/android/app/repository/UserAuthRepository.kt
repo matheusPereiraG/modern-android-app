@@ -1,11 +1,9 @@
 package com.android.app.repository
 
-import android.content.Context
+import com.android.app.domain.SignUpDomain
 import com.android.app.network.UserAuthService
 import com.android.app.network.model.NetworkSignUpRequest
 import com.android.app.network.model.NetworkSignUpResponse
-import dagger.hilt.android.qualifiers.ApplicationContext
-import okhttp3.ResponseBody
 import retrofit2.Response
 import timber.log.Timber
 import javax.inject.Inject
@@ -19,7 +17,7 @@ class UserAuthRepository @Inject constructor(
         email: String?,
         password: String?,
         administrador: Boolean?
-    ): Response<NetworkSignUpResponse>? {
+    ): SignUpDomain {
         var userAuthResponse: Response<NetworkSignUpResponse>? = null
         try {
             val userRequestBody =
@@ -28,7 +26,7 @@ class UserAuthRepository @Inject constructor(
         } catch (e: Exception) {
             Timber.w(e)
         }
-        return userAuthResponse
+        return SignUpDomain(userAuthResponse?.code(), email)
     }
 
     suspend fun logInUser(

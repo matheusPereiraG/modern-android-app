@@ -46,20 +46,20 @@ class SignUpFragment : Fragment(), HashUtils {
     }
 
     private fun initObservers() {
-        viewModel.currentStatusPair.observe(viewLifecycleOwner) { statusPair ->
-            when (statusPair.first) {
+        viewModel.signUpDomain.observe(viewLifecycleOwner) { dto ->
+            when (dto?.statusCode) {
                 201 -> {
                     clearViews()
                     Toast.makeText(
                         context,
-                        getString(R.string.sign_up_success, statusPair.second),
+                        getString(R.string.sign_up_success, dto.email),
                         Toast.LENGTH_LONG
                     ).show()
                 }
                 400 -> {
                     Toast.makeText(
                         context,
-                        getString(R.string.sign_up_bad_request, statusPair.second),
+                        getString(R.string.sign_up_bad_request, dto.email),
                         Toast.LENGTH_LONG
                     ).show()
                     initEmailListener()

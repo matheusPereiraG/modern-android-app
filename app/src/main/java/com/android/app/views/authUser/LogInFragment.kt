@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.android.app.R
 import com.android.app.databinding.FragmentLogInBinding
-import com.android.app.databinding.FragmentSignUpBinding
 import com.android.app.util.HashUtils
 
 class LogInFragment : Fragment(), HashUtils {
@@ -41,6 +41,24 @@ class LogInFragment : Fragment(), HashUtils {
     private fun initViews() {
         binding.signUpBtn.setOnClickListener {
             findNavController().navigate(LogInFragmentDirections.actionLogInToSignUp()/*UserListFragmentDirections.actionUsersListToUserDetails(it.username)*/)
+        }
+
+        binding.logInBtn.setOnClickListener {
+            viewModel.logIn(
+                binding.emailEt.text.toString(),
+                binding.passwordEt.text.toString().sha256()
+            )
+        }
+
+        binding.logInBtn.isEnabled = false
+        binding.emailEt.doOnTextChanged { text, _, _, _ ->
+            val currTextLength = text?.length ?: 0
+            binding.logInBtn.isEnabled = currTextLength > 0 && binding.passwordEt.text.isNotEmpty()
+        }
+        
+        binding.passwordEt.doOnTextChanged{ text, _, _, _ ->
+            val currTextLength = text?.length ?: 0
+            binding.logInBtn.isEnabled = currTextLength > 0 && binding.emailEt.text.isNotEmpty()
         }
     }
 
