@@ -1,7 +1,10 @@
 package com.android.app.views.authUser
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.android.app.domain.LogInDomain
+import com.android.app.domain.SignUpDomain
 import com.android.app.repository.UserAuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -12,9 +15,15 @@ import javax.inject.Inject
 class LoginInViewModel @Inject constructor(
     private val userAuthRepository: UserAuthRepository
 ) : ViewModel() {
+
+    val logInDomain: MutableLiveData<LogInDomain> by lazy {
+        MutableLiveData<LogInDomain>()
+    }
+
     fun logIn(email: String, password: String){
         viewModelScope.launch(Dispatchers.IO) {
-            userAuthRepository.logInUser(email, password)
+            val logInResponse = userAuthRepository.logInUser(email, password)
+            logInDomain.postValue(logInResponse)
         }
     }
 

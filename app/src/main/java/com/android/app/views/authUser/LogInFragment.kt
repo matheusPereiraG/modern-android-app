@@ -1,9 +1,11 @@
 package com.android.app.views.authUser
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -12,7 +14,10 @@ import androidx.navigation.fragment.findNavController
 import com.android.app.R
 import com.android.app.databinding.FragmentLogInBinding
 import com.android.app.util.HashUtils
+import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
+@AndroidEntryPoint
 class LogInFragment : Fragment(), HashUtils {
 
     private val viewModel: LoginInViewModel by viewModels()
@@ -63,7 +68,29 @@ class LogInFragment : Fragment(), HashUtils {
     }
 
     private fun initObservers() {
-
+        viewModel.logInDomain.observe(viewLifecycleOwner) { dto ->
+            when (dto?.statusCode) {
+                200 -> {
+                    Toast.makeText(
+                        context,
+                        dto.message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                400 -> {
+                    Toast.makeText(
+                        context,
+                        dto.message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    binding.logInBtn.isEnabled = false
+                }
+                else -> {
+                    Toast.makeText(context, getString(R.string.sign_up_error), Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

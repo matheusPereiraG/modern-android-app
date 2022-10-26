@@ -15,6 +15,7 @@ import com.android.app.R
 import com.android.app.databinding.FragmentSignUpBinding
 import com.android.app.util.HashUtils
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -78,7 +79,7 @@ class SignUpFragment : Fragment(), HashUtils {
             viewModel.signUpUser(
                 binding.nameEt.text.toString(),
                 binding.emailEt.text.toString(),
-                binding.passwordEt.toString().sha256(),
+                binding.passwordEt.text.toString().sha256(),
                 binding.isAdminCb.isChecked
             )
         }

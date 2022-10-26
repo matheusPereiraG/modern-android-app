@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class SignUpDomain(
     val statusCode: Int?,
-    val email: String?
+    val email: String? = ""
 ): Parcelable
