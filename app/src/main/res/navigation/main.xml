@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/log_in">
+
+    <fragment
+        android:id="@+id/log_in"
+        android:name="com.android.app.views.authUser.LogInFragment"
+        tools:layout="@layout/fragment_log_in">
+        <action
+            android:id="@+id/action_log_in_to_sign_up"
+            app:destination="@id/sign_up">
+        </action>
+
+        <action
+            android:id="@+id/action_log_in_to_products"
+            app:destination="@id/products"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/main_nav_graph"
+            app:popUpToInclusive="true">
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/sign_up"
+        android:name="com.android.app.views.authUser.SignUpFragment"
+        tools:layout="@layout/fragment_sign_up">
+        <!--<action
+            android:id="@+id/action_users_list_to_user_details"
+            app:destination="@id/user_details">
+            <argument
+                android:name="user"
+                app:argType="string" />
+        </action> -->
+    </fragment>
+
+    <fragment
+        android:id="@+id/products"
+        android:name="com.android.app.views.productsList.ProductsFragment"
+        tools:layout="@layout/fragment_products_list">
+        <!--<action
+            android:id="@+id/action_users_list_to_user_details"
+            app:destination="@id/user_details">
+            <argument
+                android:name="user"
+                app:argType="string" />
+        </action> -->
+    </fragment>
+
+</navigation>
+

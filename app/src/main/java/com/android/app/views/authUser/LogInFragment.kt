@@ -45,7 +45,7 @@ class LogInFragment : Fragment(), HashUtils {
 
     private fun initViews() {
         binding.signUpBtn.setOnClickListener {
-            findNavController().navigate(LogInFragmentDirections.actionLogInToSignUp()/*UserListFragmentDirections.actionUsersListToUserDetails(it.username)*/)
+            findNavController().navigate(LogInFragmentDirections.actionLogInToSignUp())
         }
 
         binding.logInBtn.setOnClickListener {
@@ -76,6 +76,7 @@ class LogInFragment : Fragment(), HashUtils {
                         dto.message,
                         Toast.LENGTH_LONG
                     ).show()
+                    findNavController().navigate(LogInFragmentDirections.actionLogInToProducts())
                 }
                 400 -> {
                     Toast.makeText(

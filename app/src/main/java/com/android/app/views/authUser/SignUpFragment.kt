@@ -38,7 +38,7 @@ class SignUpFragment : Fragment(), HashUtils {
         _binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_sign_up, container, false
         )
-        binding.viewModel = viewModel
+
         binding.lifecycleOwner = viewLifecycleOwner
 
         initViews()
