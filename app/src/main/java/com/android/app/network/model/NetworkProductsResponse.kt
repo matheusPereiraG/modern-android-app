@@ -22,5 +22,5 @@ data class Product(
     @Json(name = "descricao")
     val description: String? = null,
     @Json(name = "quantidade")
-    val quantity: String? = null
+    val quantity: Int? = null
 )

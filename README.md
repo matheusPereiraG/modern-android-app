@@ -1,3 +1,3 @@
-#Android Modern App MVVM
-
+# Android Modern App MVVM
+- WIP
 Repository for a new project in Android using all the recent technologies.

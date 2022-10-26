@@ -7,18 +7,19 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.android.app.R
-import com.android.app.databinding.FragmentLogInBinding
 import com.android.app.databinding.FragmentProductsListBinding
-import com.android.app.util.HashUtils
-import com.android.app.views.authUser.LoginInViewModel
+import com.android.app.network.model.Product
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProductsFragment : Fragment() {
 
     private val viewModel: ProductsViewModel by viewModels()
+
+    @Inject
+    lateinit var adapter: ProductsAdapter
     //private val args: SignUpFragmentArgs by navArgs()
 
     private var _binding: FragmentProductsListBinding? = null
@@ -29,11 +30,15 @@ class ProductsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_products_list, container, false
         )
-
+        binding.productsRv.adapter = adapter
+        adapter.setData(
+            listOf(
+                Product("ehhh", "Nome 1", 12, "Description", 13)
+            )
+        )
         binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
