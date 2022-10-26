@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.app.R
 import com.android.app.databinding.FragmentProductsListBinding
 import com.android.app.network.model.Product
@@ -33,6 +34,7 @@ class ProductsFragment : Fragment() {
         _binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_products_list, container, false
         )
+        binding.productsRv.layoutManager = LinearLayoutManager(context)
         binding.productsRv.adapter = adapter
         adapter.setData(
             listOf(
