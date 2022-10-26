@@ -17,4 +17,9 @@ interface ProductsService {
         @Query("descricao") description: String?,
         @Query("quantidade") quantity: Int?
     ): Response<NetworkProductsResponse>
+
+    @GET("/produtos")
+    suspend fun getAllProducts(
+        @Header("Authorization") authToken: String,
+    ): Response<NetworkProductsResponse>
 }

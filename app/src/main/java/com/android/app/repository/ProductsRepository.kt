@@ -29,4 +29,18 @@ class ProductsRepository @Inject constructor(
         }
         return getProductsResponse?.body()?.products
     }
+
+    suspend fun getAllProducts(): List<Product>? {
+        var getProductsResponse: Response<NetworkProductsResponse>? = null
+        try {
+            val token = sharedPreferences.getString("token", "") ?: ""
+            getProductsResponse =
+                productsService.getAllProducts(token)
+        } catch (e: Exception) {
+            Timber.w(e)
+        }
+        return getProductsResponse?.body()?.products
+    }
+
+
 }

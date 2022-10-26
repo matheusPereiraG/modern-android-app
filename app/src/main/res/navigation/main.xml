@@ -27,26 +27,12 @@
         android:id="@+id/sign_up"
         android:name="com.android.app.views.authUser.SignUpFragment"
         tools:layout="@layout/fragment_sign_up">
-        <!--<action
-            android:id="@+id/action_users_list_to_user_details"
-            app:destination="@id/user_details">
-            <argument
-                android:name="user"
-                app:argType="string" />
-        </action> -->
     </fragment>
 
     <fragment
         android:id="@+id/products"
         android:name="com.android.app.views.productsList.ProductsFragment"
         tools:layout="@layout/fragment_products_list">
-        <!--<action
-            android:id="@+id/action_users_list_to_user_details"
-            app:destination="@id/user_details">
-            <argument
-                android:name="user"
-                app:argType="string" />
-        </action> -->
     </fragment>
 
 </navigation>

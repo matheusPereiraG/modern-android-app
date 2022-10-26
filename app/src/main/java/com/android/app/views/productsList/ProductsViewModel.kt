@@ -21,9 +21,9 @@ class ProductsViewModel @Inject constructor(
         MutableLiveData<List<Product>>()
     }
 
-    fun getProducts() =
+    fun getAllProducts() =
         viewModelScope.launch(Dispatchers.IO) {
-            /*val products = productsRepository.getProducts()
-            signUpDomain.postValue(networkResponse)^*/
+            val products = productsRepository.getAllProducts()
+            productsList.postValue(products)
         }
 }

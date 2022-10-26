@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.app.R
 import com.android.app.databinding.FragmentProductsListBinding
-import com.android.app.network.model.Product
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -34,15 +34,32 @@ class ProductsFragment : Fragment() {
         _binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_products_list, container, false
         )
-        binding.productsRv.layoutManager = LinearLayoutManager(context)
-        binding.productsRv.adapter = adapter
-        adapter.setData(
-            listOf(
-                Product("ehhh", "Nome 1", 12, "Description", 13)
-            )
-        )
+
+        initRecyclerView()
+        initObservers()
+
         binding.lifecycleOwner = viewLifecycleOwner
 
+        viewModel.getAllProducts()
+
         return binding.root
+    }
+
+    private fun initObservers() {
+        viewModel.productsList.observe(viewLifecycleOwner) {
+            adapter.setData(it)
+        }
+    }
+
+    private fun initRecyclerView() {
+        val layoutManager = LinearLayoutManager(context)
+        binding.productsRv.layoutManager = layoutManager
+        binding.productsRv.adapter = adapter
+        binding.productsRv.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                layoutManager.orientation
+            )
+        )
     }
 }
