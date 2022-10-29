@@ -57,7 +57,7 @@ class UserAuthRepository @Inject constructor(
             }
         }
 
-        return LogInDomain(logInResponse?.code(), email)
+        return LogInDomain(logInResponse?.code(), logInResponse?.body()?.message)
     }
 
     /*fun getUserDetails(user: String): LiveData<UserDetails> {
