@@ -1,7 +1,6 @@
 package com.android.app.views.authUser
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import com.android.app.R
 import com.android.app.databinding.FragmentLogInBinding
 import com.android.app.util.HashUtils
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class LogInFragment : Fragment(), HashUtils {
@@ -44,7 +42,7 @@ class LogInFragment : Fragment(), HashUtils {
     }
 
     private fun initViews() {
-        binding.signUpBtn.setOnClickListener {
+        binding.goToSignUpBtn.setOnClickListener {
             findNavController().navigate(LogInFragmentDirections.actionLogInToSignUp())
         }
 
@@ -60,8 +58,8 @@ class LogInFragment : Fragment(), HashUtils {
             val currTextLength = text?.length ?: 0
             binding.logInBtn.isEnabled = currTextLength > 0 && binding.passwordEt.text.isNotEmpty()
         }
-        
-        binding.passwordEt.doOnTextChanged{ text, _, _, _ ->
+
+        binding.passwordEt.doOnTextChanged { text, _, _, _ ->
             val currTextLength = text?.length ?: 0
             binding.logInBtn.isEnabled = currTextLength > 0 && binding.emailEt.text.isNotEmpty()
         }

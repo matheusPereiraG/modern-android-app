@@ -22,7 +22,6 @@ import timber.log.Timber
 class SignUpFragment : Fragment(), HashUtils {
 
     private val viewModel: SignUpViewModel by viewModels()
-    //private val args: SignUpFragmentArgs by navArgs()
 
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!

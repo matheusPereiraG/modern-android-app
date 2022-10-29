@@ -21,7 +21,6 @@ class ProductsFragment : Fragment() {
 
     @Inject
     lateinit var adapter: ProductsAdapter
-    //private val args: SignUpFragmentArgs by navArgs()
 
     private var _binding: FragmentProductsListBinding? = null
     private val binding get() = _binding!!
