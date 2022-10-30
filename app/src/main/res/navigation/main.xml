@@ -33,6 +33,17 @@
         android:id="@+id/products"
         android:name="com.android.app.views.productsList.ProductsFragment"
         tools:layout="@layout/fragment_products_list">
+
+        <action
+            android:id="@+id/action_create_product"
+            app:destination="@id/create_product">
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/create_product"
+        android:name="com.android.app.views.createProduct.CreateProductFragment"
+        tools:layout="@layout/fragment_create_product">
     </fragment>
 
 </navigation>
