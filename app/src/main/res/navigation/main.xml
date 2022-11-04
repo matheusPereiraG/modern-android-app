@@ -17,10 +17,8 @@
         <action
             android:id="@+id/action_log_in_to_products"
             app:destination="@id/products"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/main"
-            app:popUpToInclusive="false">
-        </action>
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false"></action>
     </fragment>
 
     <fragment
@@ -36,8 +34,9 @@
 
         <action
             android:id="@+id/action_create_product"
-            app:destination="@id/create_product">
-        </action>
+            app:destination="@id/create_product"
+            app:popUpTo="@id/products"
+            app:popUpToInclusive="false"></action>
     </fragment>
 
     <fragment

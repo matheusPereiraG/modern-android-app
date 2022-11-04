@@ -5,35 +5,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/prod_name_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Product Name" />
 
         <EditText
+            android:id="@+id/description_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Description" />
 
         <EditText
+            android:id="@+id/price_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Price"
             android:inputType="number" />
 
         <EditText
+            android:id="@+id/quantity_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Quantity"
             android:inputType="number" />
 
         <Button
+            android:id="@+id/save_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:enabled="false"
             android:text="Save" />
 
     </LinearLayout>

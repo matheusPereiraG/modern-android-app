@@ -27,6 +27,11 @@ class SignUpFragment : Fragment(), HashUtils {
 
     private lateinit var oldColors: ColorStateList
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initObservers()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -38,12 +43,11 @@ class SignUpFragment : Fragment(), HashUtils {
         binding.lifecycleOwner = viewLifecycleOwner
 
         initViews()
-        initObservers()
         return binding.root
     }
 
     private fun initObservers() {
-        viewModel.signUpDomain.observe(viewLifecycleOwner) { dto ->
+        viewModel.signUpDomain.observe(this) { dto ->
             when (dto?.statusCode) {
                 201 -> {
                     clearViews()

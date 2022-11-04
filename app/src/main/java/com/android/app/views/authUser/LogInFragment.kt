@@ -24,6 +24,11 @@ class LogInFragment : Fragment(), HashUtils {
     private var _binding: FragmentLogInBinding? = null
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initObservers()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,7 +42,7 @@ class LogInFragment : Fragment(), HashUtils {
         binding.lifecycleOwner = viewLifecycleOwner
 
         initViews()
-        initObservers()
+
         return binding.root
     }
 
@@ -47,6 +52,7 @@ class LogInFragment : Fragment(), HashUtils {
         }
 
         binding.logInBtn.setOnClickListener {
+            binding.logInBtn.isEnabled = false
             viewModel.logIn(
                 binding.emailEt.text.toString(),
                 binding.passwordEt.text.toString().sha256()
@@ -66,7 +72,8 @@ class LogInFragment : Fragment(), HashUtils {
     }
 
     private fun initObservers() {
-        viewModel.logInDomain.observe(viewLifecycleOwner) { dto ->
+        viewModel.logInDomain.observe(this) { dto ->
+            binding.logInBtn.isEnabled = true
             when (dto?.statusCode) {
                 200 -> {
                     Toast.makeText(
@@ -77,11 +84,16 @@ class LogInFragment : Fragment(), HashUtils {
                     findNavController().navigate(LogInFragmentDirections.actionLogInToProducts())
                 }
                 400 -> {
+                    var errorMsg = getString(R.string.sign_up_error)
+                    dto.message?.let {
+                        errorMsg = it
+                    }
                     Toast.makeText(
                         context,
-                        dto.message,
+                        errorMsg,
                         Toast.LENGTH_LONG
                     ).show()
+
                     binding.logInBtn.isEnabled = false
                 }
                 else -> {
