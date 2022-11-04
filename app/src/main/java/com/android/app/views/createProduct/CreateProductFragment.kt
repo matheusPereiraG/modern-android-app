@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.android.app.R
 import com.android.app.databinding.FragmentCreateProductBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CreateProductFragment : Fragment() {
 
-    //private val viewModel: ProductsViewModel by viewModels()
+    private val viewModel: CreateProductViewModel by viewModels()
 
     private var _binding: FragmentCreateProductBinding? = null
     private val binding get() = _binding!!
@@ -28,6 +29,19 @@ class CreateProductFragment : Fragment() {
         )
 
         binding.lifecycleOwner = viewLifecycleOwner
+
+        initViews()
+        initObservers()
         return binding.root
+    }
+
+    private fun initViews() {
+
+    }
+
+    private fun initObservers() {
+        viewModel.createProduct.observe(viewLifecycleOwner) {
+            //adapter.setData(it)
+        }
     }
 }

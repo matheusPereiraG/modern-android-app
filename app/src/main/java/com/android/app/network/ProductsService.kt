@@ -1,10 +1,8 @@
 package com.android.app.network
 
-import com.android.app.network.model.NetworkProductsResponse
+import com.android.app.network.model.*
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ProductsService {
 
@@ -16,10 +14,16 @@ interface ProductsService {
         @Query("preco") price: Int?,
         @Query("descricao") description: String?,
         @Query("quantidade") quantity: Int?
-    ): Response<NetworkProductsResponse>
+    ): Response<ProductsResponse>
 
     @GET("/produtos")
     suspend fun getAllProducts(
         @Header("Authorization") authToken: String,
-    ): Response<NetworkProductsResponse>
+    ): Response<ProductsResponse>
+
+    @POST("/produtos")
+    suspend fun createProduct(
+        @Header("Authorization") authToken: String,
+        @Body product: CreateProductRequest
+    ): Response<CreateProductResponse>
 }

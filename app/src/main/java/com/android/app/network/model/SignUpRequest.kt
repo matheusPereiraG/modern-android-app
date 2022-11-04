@@ -1,11 +1,10 @@
 package com.android.app.network.model
 
-import com.android.app.database.DatabaseUserDetails
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class NetworkSignUpRequest(
+data class SignUpRequest(
     @Json(name = "nome")
     val name: String? = null,
     @Json(name = "email")
@@ -15,14 +14,3 @@ data class NetworkSignUpRequest(
     @Json(name = "administrador")
     val isAdmin: String? = null
 )
-
-fun NetworkSignUpRequest.asDatabaseModel(): DatabaseUserDetails {
-    return DatabaseUserDetails(
-        id = "",
-        name ?: "",
-        email ?: "",
-        password ?: "",
-        isAdmin.toBoolean()
-    )
-
-}

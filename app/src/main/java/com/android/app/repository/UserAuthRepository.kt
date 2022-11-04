@@ -4,10 +4,7 @@ import android.content.SharedPreferences
 import com.android.app.domain.LogInDomain
 import com.android.app.domain.SignUpDomain
 import com.android.app.network.UserAuthService
-import com.android.app.network.model.NetworkLogInRequest
-import com.android.app.network.model.NetworkLogInResponse
-import com.android.app.network.model.NetworkSignUpRequest
-import com.android.app.network.model.NetworkSignUpResponse
+import com.android.app.network.model.*
 import retrofit2.Response
 import timber.log.Timber
 import javax.inject.Inject
@@ -23,10 +20,10 @@ class UserAuthRepository @Inject constructor(
         password: String?,
         administrador: Boolean?
     ): SignUpDomain {
-        var signUpResponse: Response<NetworkSignUpResponse>? = null
+        var signUpResponse: Response<SignUpResponse>? = null
         try {
             val userRequestBody =
-                NetworkSignUpRequest(nome, email, password, administrador.toString())
+                SignUpRequest(nome, email, password, administrador.toString())
             signUpResponse = userAuthService.signUpUser(userRequestBody)
         } catch (e: Exception) {
             Timber.w(e)
@@ -38,10 +35,10 @@ class UserAuthRepository @Inject constructor(
         email: String,
         password: String
     ): LogInDomain {
-        var logInResponse: Response<NetworkLogInResponse>? = null
+        var logInResponse: Response<LogInResponse>? = null
         try {
             val loginRequestBody =
-                NetworkLogInRequest(email, password)
+                LogInRequest(email, password)
             logInResponse = userAuthService.logInUser(loginRequestBody)
         } catch (e: Exception) {
             Timber.w(e)
