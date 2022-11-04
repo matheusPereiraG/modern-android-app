@@ -15,7 +15,6 @@ import com.android.app.R
 import com.android.app.databinding.FragmentSignUpBinding
 import com.android.app.util.HashUtils
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -29,9 +28,7 @@ class SignUpFragment : Fragment(), HashUtils {
     private lateinit var oldColors: ColorStateList
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
         _binding = DataBindingUtil.inflate(
@@ -51,9 +48,7 @@ class SignUpFragment : Fragment(), HashUtils {
                 201 -> {
                     clearViews()
                     Toast.makeText(
-                        context,
-                        getString(R.string.sign_up_success, dto.email),
-                        Toast.LENGTH_LONG
+                        context, getString(R.string.sign_up_success, dto.email), Toast.LENGTH_LONG
                     ).show()
                 }
                 400 -> {
@@ -62,7 +57,7 @@ class SignUpFragment : Fragment(), HashUtils {
                         getString(R.string.sign_up_bad_request, dto.email),
                         Toast.LENGTH_LONG
                     ).show()
-                    initEmailListener()
+                    showEmailError()
                 }
                 else -> {
                     Toast.makeText(context, getString(R.string.sign_up_error), Toast.LENGTH_LONG)
@@ -82,20 +77,34 @@ class SignUpFragment : Fragment(), HashUtils {
                 binding.isAdminCb.isChecked
             )
         }
+
+        binding.nameEt.doOnTextChanged { _, _, _, _ ->
+            binding.signUpBtn.isEnabled = canSignUp()
+        }
+
+        binding.emailEt.doOnTextChanged { _, _, _, _ ->
+            binding.emailEt.setTextColor(oldColors)
+            binding.signUpBtn.isEnabled = canSignUp()
+        }
+
+        binding.passwordEt.doOnTextChanged { _, _, _, _ ->
+            binding.signUpBtn.isEnabled = canSignUp()
+        }
     }
 
-    private fun initEmailListener() {
+    private fun canSignUp(): Boolean {
+        return binding.nameEt.text.isNotEmpty() && binding.emailEt.text.isNotEmpty()
+                && binding.passwordEt.text.isNotEmpty()
+
+    }
+
+    private fun showEmailError() {
         context?.let { ctx ->
             val resId = ContextCompat.getColor(ctx, R.color.design_default_color_error)
             binding.emailEt.setTextColor(resId)
         }
 
         binding.signUpBtn.isEnabled = false
-
-        binding.emailEt.doOnTextChanged { text, start, before, count ->
-            binding.emailEt.setTextColor(oldColors)
-            binding.signUpBtn.isEnabled = true
-        }
     }
 
     private fun clearViews() {

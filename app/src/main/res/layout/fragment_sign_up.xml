@@ -42,7 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:hint="Sign Up"
-            android:textColorHint="@color/white" />
+            android:textColorHint="@color/white"
+            android:enabled="false"/>
 
     </LinearLayout>
 
