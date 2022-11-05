@@ -80,6 +80,7 @@ class ProductsFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        binding.productsRv.adapter = null
         super.onDestroyView()
         _binding = null
     }
